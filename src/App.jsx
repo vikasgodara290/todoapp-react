@@ -1,18 +1,22 @@
 import { useState } from 'react'
 
 function App() {
-  const [todos, setCount] = useState([
+  const [todos, setTodo] = useState([
     {
       title : "go to gym"
     }
   ])
 
   function addtodo(){
-    setCount([...todos, {
+    setTodo([...todos, {
       title : document.getElementById('todo').value
     }]);
     document.getElementById('todo').value = ""
   }
+
+  const deleteTodo = (index) => {
+    setTodo(todos.filter((_, i) => i !== index));
+  };
 
   return (
     <>
@@ -20,7 +24,12 @@ function App() {
     <button onClick={addtodo}>Add Todo</button>
 
     <div>
-        {todos.map((todo, index) => (<p>{todo.title}</p>))}
+      {todos.map((todo, index) => (
+        <div key={index}>
+          <div>{todo.title}</div>
+          <button onClick={() => deleteTodo(index)}>delete</button>
+        </div>
+      ))}
     </div>
     </>
   )
